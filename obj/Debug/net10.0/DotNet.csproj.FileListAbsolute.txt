@@ -1,0 +1,15 @@
+/Users/artemcike/Documents/IMI-Labs/DotNet/bin/Debug/net10.0/DotNet
+/Users/artemcike/Documents/IMI-Labs/DotNet/bin/Debug/net10.0/DotNet.deps.json
+/Users/artemcike/Documents/IMI-Labs/DotNet/bin/Debug/net10.0/DotNet.runtimeconfig.json
+/Users/artemcike/Documents/IMI-Labs/DotNet/bin/Debug/net10.0/DotNet.dll
+/Users/artemcike/Documents/IMI-Labs/DotNet/bin/Debug/net10.0/DotNet.pdb
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/DotNet.GeneratedMSBuildEditorConfig.editorconfig
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/DotNet.AssemblyInfoInputs.cache
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/DotNet.AssemblyInfo.cs
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/DotNet.csproj.CoreCompileInputs.cache
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/DotNet.sourcelink.json
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/DotNet.dll
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/refint/DotNet.dll
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/DotNet.pdb
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/DotNet.genruntimeconfig.cache
+/Users/artemcike/Documents/IMI-Labs/DotNet/obj/Debug/net10.0/ref/DotNet.dll
