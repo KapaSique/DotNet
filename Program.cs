@@ -1,54 +1,55 @@
 using System;
 using System.Text;
 
-// Console.OutputEncoding = Encoding.UTF8;
-// Console.InputEncoding = Encoding.UTF8; 
+Console.OutputEncoding = Encoding.UTF8;
+Console.InputEncoding = Encoding.UTF8; 
 
 //x + b = 0,a!= 0
 
-// Console.Write("а: ");
+Console.Write("а: ");
 
-// double a = double.Parse(Console.ReadLine() ?? "0");
+double a = double.Parse(Console.ReadLine() ?? "0");
 
-// Console.Write("b: ");
-// double b = double.Parse(Console.ReadLine() ?? "0");
+Console.Write("b: ");
+double b = double.Parse(Console.ReadLine() ?? "0");
 
-// double x = -b / a;
-// Console.WriteLine(x);
+double x = -b / a;
+Console.WriteLine(x);
 
 //max среди двух дабл чисел
-/*
-Console.Write("x: ");
-double x = double.Parse(Console.ReadLine() ?? "0");
-Console.Write("y: ");
-double y = double.Parse(Console.ReadLine() ?? "0");
 
-Console.WriteLine(x > y ? x : y);
-*/
+// Console.Write("x: ");
+// double x = double.Parse(Console.ReadLine() ?? "0");
 
-//грибы (галлюциногенные)
+// Console.Write("y: ");
+// double y = double.Parse(Console.ReadLine() ?? "0");
 
-Console.Write("k: ");
-int k = int.Parse(Console.ReadLine() ?? "0");
+// Console.WriteLine(x > y ? x : y);
 
-int lastTwo = k % 100;
-string word;
 
-if (lastTwo >= 11 && lastTwo <= 14){
-    word = "грибов";
-}
-else{
-    int last = k % 10;
+//грибы (мухомор)
 
-    if (last == 1)
-        word = "гриб";
-    else if (last >= 2 && last <= 4)
-        word = "гриба";
-    else
-        word = "грибов";
-}
+// Console.Write("k: ");
+// int k = int.Parse(Console.ReadLine() ?? "0");
 
-Console.WriteLine($"Мы нашли {k} {word} в лесу!");
+// int lastTwo = k % 100;
+// string word;
+
+// if (lastTwo >= 11 && lastTwo <= 14){
+//     word = "грибов";
+// }
+// else{
+//     int last = k % 10;
+
+//     if (last == 1)
+//         word = "гриб";
+//     else if (last >= 2 && last <= 4)
+//         word = "гриба";
+//     else
+//         word = "грибов";
+// }
+
+// Console.WriteLine($"Мы нашли {k} {word} в лесу!");
 
 
 //крух и квадрат
@@ -70,20 +71,27 @@ Console.WriteLine($"Мы нашли {k} {word} в лесу!");
 
 
 //сравнение кмч и мс
-/*
-Console.Write("kmh: ");
-double kmh = double.Parse(Console.ReadLine() ?? "0");
-Console.Write("ms: ");
-double ms = double.Parse(Console.ReadLine() ?? "0");
 
-double kmhMs = kmh / 3.6;
+// Console.Write("км/ч: "); //первый случай, пусть 36, второй случай 18, третий случай 72
+// double kmh = double.Parse(Console.ReadLine() ?? "0");
 
-if (kmhMs > ms) Console.WriteLine("kmh faster");
-else if (kmhMs < ms) Console.WriteLine("ms faster");
-else Console.WriteLine("equal");
-*/
+// Console.Write("м/с: "); //пусть 5, пусть 10, 20
+// double ms = double.Parse(Console.ReadLine() ?? "0");
+
+// double kmhMs = kmh / 3.6;
+
+// if (kmhMs > ms){
+//     Console.WriteLine("в км/ч быстрее");
+// } 
+// else if (kmhMs < ms){
+//     Console.WriteLine("в м/с быстрее");
+// }
+// else Console.WriteLine("они равны");
+
 
 //определение возраста
+
+// DateTime currentDate = DateTime.Today;
 
 // Console.Write("Год рождения: ");
 // int by = int.Parse(Console.ReadLine() ?? "0");
@@ -91,14 +99,10 @@ else Console.WriteLine("equal");
 // Console.Write("Месяц рождения: ");
 // int bm = int.Parse(Console.ReadLine() ?? "0");
 
-// Console.Write("Текущий год: ");
-// int cy = int.Parse(Console.ReadLine() ?? "0");
+// DateTime birthDate = new DateTime(by, bm, 1);
 
-// Console.Write("Текущий месяц: ");
-// int cm = int.Parse(Console.ReadLine() ?? "0");
-
-// int age = cy - by; 
-// if (cm < bm) age--;
+// int age = currentDate.Year - birthDate.Year;
+// if (currentDate < birthDate.AddYears(age)) age--;
 
 // Console.WriteLine(age);
 
