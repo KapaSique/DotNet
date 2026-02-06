@@ -14,7 +14,7 @@ public class LinearEquation
 
         if (a == 0)
         {
-            Console.WriteLine(b == 0 ? "Бесконечно много решений" : "Нет решений");
+            Console.WriteLine(b == 0 ? "Комплексное число" : "Нет решений");
         }
         else
         {

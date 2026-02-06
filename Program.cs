@@ -1,5 +1,6 @@
 using System.Text;
 using DotNet.Laba1;
+using DotNet.Laba2;
 
 Console.OutputEncoding = Encoding.UTF8;
 Console.InputEncoding = Encoding.UTF8;
@@ -8,16 +9,16 @@ while (true)
 {
     Console.WriteLine("\n=== Лабораторные работы ===");
     Console.WriteLine("1. Лабораторная 1");
+    Console.WriteLine("2. Лабораторная 2");
     Console.WriteLine("0. Выход");
     Console.Write("\nВыберите лабораторную: ");
 
-    string lab = Console.ReadLine() ?? "0";
+    string lab = Console.ReadLine();
 
     switch (lab)
     {
         case "1": RunLaba1(); break;
-        case "0": return;
-        default: Console.WriteLine("Неверный выбор"); break;
+        case "2": CarsDemo.Run(); break;
     }
 }
 
@@ -53,5 +54,16 @@ static void RunLaba1()
             case "0": return;
             default: Console.WriteLine("Неверный выбор"); break;
         }
+    }
+}
+
+static void RunLaba2()
+{
+    while (true)
+    {
+        Console.WriteLine("\n=== Лабораторная 2 ===");
+
+        string choice = Console.ReadLine() ?? "0";
+        Console.WriteLine();
     }
 }
