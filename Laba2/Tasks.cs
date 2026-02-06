@@ -77,7 +77,7 @@ public abstract class Car
 }
 public class Toyota : Car
 {
-    public Toyota() : base("Toyota", 300) {}
+    public Toyota(string name, int maxSpeed) : base(name, maxSpeed) {}
 
     public override void Speedup(int delta)
     {
@@ -89,10 +89,10 @@ public class Toyota : Car
 
         _speed += delta;
 
-        if (_speed > 300)
+        if (_speed > _maxSpeed)
         {
-            _speed = 300;
-            Console.WriteLine($"{_name}: достигнута максимальная скорость 300 км/ч!");
+            _speed = _maxSpeed;
+            Console.WriteLine($"{_name}: достигнута максимальная скорость {_maxSpeed} км/ч!");
         }
         else
         {
@@ -104,12 +104,12 @@ public class Toyota : Car
 
 public class Ferrari : Car
 {
-    public Ferrari() : base("Ferrari", 350) { }
+    public Ferrari(string name, int maxSpeed) : base(name, maxSpeed) { }
 }
 
 public class Bugatti : Car
 {
-    public Bugatti() : base("Bugatti", 420) { }
+    public Bugatti(string name, int maxSpeed) : base(name, maxSpeed) { }
 }
 public class CarsDemo
 {
@@ -117,16 +117,54 @@ public class CarsDemo
     {
         Console.WriteLine("=== Лабораторная работа 2: Автомобили ===\n");
 
-        Car[] cars = { new Toyota(), new Ferrari(), new Bugatti() };
+        Console.Write("Введите количество автомобилей: ");
+        int count = int.Parse(Console.ReadLine() ?? "0");
+
+        List<Car> cars = new List<Car>();
+
+        for (int i = 0; i < count; i++)
+        {
+            Console.WriteLine($"\n--- Автомобиль {i + 1} ---");
+            Console.WriteLine("Выберите тип автомобиля:");
+            Console.WriteLine("1. Toyota");
+            Console.WriteLine("2. Ferrari");
+            Console.WriteLine("3. Bugatti");
+            Console.Write("Ваш выбор (1-3): ");
+
+            int type = int.Parse(Console.ReadLine() ?? "1");
+
+            Console.Write("Введите название автомобиля: ");
+            string name = Console.ReadLine() ?? "Без названия";
+
+            Console.Write("Введите максимальную скорость (км/ч): ");
+            int maxSpeed = int.Parse(Console.ReadLine() ?? "200");
+
+            Car car = type switch
+            {
+                1 => new Toyota(name, maxSpeed),
+                2 => new Ferrari(name, maxSpeed),
+                3 => new Bugatti(name, maxSpeed),
+                _ => new Toyota(name, maxSpeed)
+            };
+
+            cars.Add(car);
+        }
+
+        Console.WriteLine("\n=== Демонстрация автомобилей ===\n");
 
         foreach (var car in cars)
         {
             car.Start();
             car.RadioOn();
-            car.Speedup(100);
-            car.Speedup(150);
-            car.Speedup(100);  
-            car.SlowDown(50);
+
+            Console.Write($"Введите ускорение для текущего авто: ");
+            int accel = int.Parse(Console.ReadLine() ?? "50");
+            car.Speedup(accel);
+
+            Console.Write($"Введите замедление: ");
+            int decel = int.Parse(Console.ReadLine() ?? "20");
+            car.SlowDown(decel);
+
             car.ShowInfo();
             car.Stop();
             car.RadioOff();
