@@ -1,6 +1,7 @@
 using System.Text;
 using DotNet.Laba1;
 using DotNet.Laba2;
+using DotNet.Laba3;
 
 Console.OutputEncoding = Encoding.UTF8;
 Console.InputEncoding = Encoding.UTF8;
@@ -10,6 +11,7 @@ while (true)
     Console.WriteLine("\n=== Лабораторные работы ===");
     Console.WriteLine("1. Лабораторная 1");
     Console.WriteLine("2. Лабораторная 2");
+    Console.WriteLine("3. Лабораторная 3");
     Console.WriteLine("0. Выход");
     Console.Write("\nВыберите лабораторную: ");
 
@@ -19,6 +21,8 @@ while (true)
     {
         case "1": RunLaba1(); break;
         case "2": CarsDemo.Run(); break;
+        case "3": RunLaba3(); break;
+        case "0": return;
     }
 }
 
@@ -57,13 +61,25 @@ static void RunLaba1()
     }
 }
 
-static void RunLaba2()
+static void RunLaba3()
 {
     while (true)
     {
-        Console.WriteLine("\n=== Лабораторная 2 ===");
+        Console.WriteLine("\n=== Лабораторная 3 ===");
+        Console.WriteLine("1. Конструкторы");
+        Console.WriteLine("2. Пространства имен");
+        Console.WriteLine("0. Назад");
+        Console.Write("\nВыберите задание: ");
 
         string choice = Console.ReadLine() ?? "0";
         Console.WriteLine();
+
+        switch (choice)
+        {
+            case "1": ConstructorsDemo.Run(); break;
+            case "2": NamespacesDemo.Run(); break;
+            case "0": return;
+            default: Console.WriteLine("Неверный выбор"); break;
+        }
     }
 }
