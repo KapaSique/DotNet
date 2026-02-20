@@ -66,8 +66,11 @@ static void RunLaba3()
     while (true)
     {
         Console.WriteLine("\n=== Лабораторная 3 ===");
-        Console.WriteLine("1. Конструкторы");
-        Console.WriteLine("2. Пространства имен");
+        Console.WriteLine("1. Задание 1 (Зубчатый массив)");
+        Console.WriteLine("2. Задание 2 (Подсчет символов 's')");
+        Console.WriteLine("3. Задание 3 (Перекодировка)");
+        Console.WriteLine("4. Задание 4 (Замена слов)");
+        Console.WriteLine("5. Задание 5 (Вывод директории)");
         Console.WriteLine("0. Назад");
         Console.Write("\nВыберите задание: ");
 
@@ -76,8 +79,11 @@ static void RunLaba3()
 
         switch (choice)
         {
-            case "1": ConstructorsDemo.Run(); break;
-            case "2": NamespacesDemo.Run(); break;
+            case "1": Task1.Run(); break;
+            case "2": Task2.Run(); break;
+            case "3": Task3.Run(); break;
+            case "4": Task4.Run(); break;
+            case "5": Task5.Run(); break;
             case "0": return;
             default: Console.WriteLine("Неверный выбор"); break;
         }
