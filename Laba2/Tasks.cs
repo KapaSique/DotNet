@@ -129,7 +129,6 @@ public class CarsDemo
             Console.WriteLine("1. Toyota");
             Console.WriteLine("2. Ferrari");
             Console.WriteLine("3. Bugatti");
-            Console.Write("Ваш выбор (1-3): ");
 
             int type = int.Parse(Console.ReadLine() ?? "1");
 
@@ -146,7 +145,6 @@ public class CarsDemo
                 3 => new Bugatti(name, maxSpeed),
                 _ => new Toyota(name, maxSpeed)
             };
-
             cars.Add(car);
         }
 
