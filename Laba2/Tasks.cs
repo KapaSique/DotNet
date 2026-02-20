@@ -62,8 +62,10 @@ public abstract class Car
 
     public void SlowDown(int delta)
     {
-        Speedup(-delta);
+        Speedup(-Math.Abs(delta));
     }
+
+    public int Speed => _speed;
 
     public void RadioOn() => _radio.On();
     public void RadioOff() => _radio.Off();
@@ -77,7 +79,7 @@ public abstract class Car
 }
 public class Toyota : Car
 {
-    public Toyota(string name, int maxSpeed) : base(name, maxSpeed) {}
+    public Toyota(string name) : base(name, 200) {}
 
     public override void Speedup(int delta)
     {
@@ -135,16 +137,29 @@ public class CarsDemo
             Console.Write("Введите название автомобиля: ");
             string name = Console.ReadLine() ?? "Без названия";
 
-            Console.Write("Введите максимальную скорость (км/ч): ");
-            int maxSpeed = int.Parse(Console.ReadLine() ?? "200");
-
-            Car car = type switch
+            Car car;
+            if (type == 1)
             {
-                1 => new Toyota(name, maxSpeed),
-                2 => new Ferrari(name, maxSpeed),
-                3 => new Bugatti(name, maxSpeed),
-                _ => new Toyota(name, maxSpeed)
-            };
+                car = new Toyota(name);
+                Console.WriteLine("Toyota: максимальная скорость 200 км/ч");
+            }
+            else
+            {
+                Console.Write("Введите максимальную скорость (км/ч): ");
+                int maxSpeed = int.Parse(Console.ReadLine() ?? "200");
+                car = type switch
+                {
+                    2 => new Ferrari(name, maxSpeed),
+                    3 => new Bugatti(name, maxSpeed),
+                    _ => new Ferrari(name, maxSpeed)
+                };
+            }
+
+            Console.Write("Завести автомобиль? (да/нет): ");
+            string start = Console.ReadLine() ?? "нет";
+            if (start.Equals("да", StringComparison.OrdinalIgnoreCase))
+                car.Start();
+
             cars.Add(car);
         }
 
@@ -152,16 +167,24 @@ public class CarsDemo
 
         foreach (var car in cars)
         {
-            car.Start();
             car.RadioOn();
 
-            Console.Write($"Введите ускорение для текущего авто: ");
-            int accel = int.Parse(Console.ReadLine() ?? "50");
+            Console.Write("Введите ускорение для текущего авто: ");
+            int accel = Math.Abs(int.Parse(Console.ReadLine() ?? "50"));
             car.Speedup(accel);
 
-            Console.Write($"Введите замедление: ");
-            int decel = int.Parse(Console.ReadLine() ?? "20");
-            car.SlowDown(decel);
+            while (car.Speed > 0)
+            {
+                Console.Write($"Текущая скорость: {car.Speed} км/ч. Введите замедление (0 - стоп): ");
+                int decel = Math.Abs(int.Parse(Console.ReadLine() ?? "0"));
+                if (decel == 0) break;
+                if (decel > car.Speed)
+                {
+                    Console.WriteLine($"Замедление не может быть больше текущей скорости ({car.Speed} км/ч)!");
+                    continue;
+                }
+                car.SlowDown(decel);
+            }
 
             car.ShowInfo();
             car.Stop();
