@@ -6,15 +6,8 @@ namespace DotNet.Laba4;
 // Замена каждого второго вхождения слова (запись в обратном порядке)
 public class StringReplace
 {
-    public static void Run()
+    public static string ProcessString(string input)
     {
-        Console.OutputEncoding = Encoding.UTF8;
-        Console.InputEncoding = Encoding.UTF8;
-
-        Console.WriteLine("=== Задание 1: Замена каждого второго вхождения слова ===");
-        Console.WriteLine("Введите предложение, состоящее только из слов и предлогов:");
-        string input = Console.ReadLine() ?? "";
-
         string[] words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         Dictionary<string, int> wordCounts = new();
 
@@ -36,15 +29,43 @@ public class StringReplace
             }
         }
 
-        string result = string.Join(" ", words);
+        return string.Join(" ", words);
+    }
+
+    public static void Run()
+    {
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.InputEncoding = Encoding.UTF8;
+
+        Console.WriteLine("=== Задание 1: Замена каждого второго вхождения слова ===");
+        Console.WriteLine("Введите предложение, состоящее только из слов и предлогов:");
+        string input = Console.ReadLine() ?? "";
+
         Console.WriteLine("Результат:");
-        Console.WriteLine(result);
+        Console.WriteLine(ProcessString(input));
     }
 }
 
 // === Задание 2: Квадратная матрица, максимумы строк ===
 public class SquareMatrix
 {
+    public static int[] FindMaxInRows(int[,] matrix)
+    {
+        int n = matrix.GetLength(0);
+        int[] maxInRows = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            int max = matrix[i, 0];
+            for (int j = 1; j < n; j++)
+            {
+                if (matrix[i, j] > max)
+                    max = matrix[i, j];
+            }
+            maxInRows[i] = max;
+        }
+        return maxInRows;
+    }
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -68,24 +89,43 @@ public class SquareMatrix
         }
 
         Console.Write("\nМаксимальные числа в каждой строке: ");
-        int[] maxInRows = new int[n];
-        for (int i = 0; i < n; i++)
-        {
-            int max = matrix[i, 0];
-            for (int j = 1; j < n; j++)
-            {
-                if (matrix[i, j] > max)
-                    max = matrix[i, j];
-            }
-            maxInRows[i] = max;
-        }
-        Console.WriteLine(string.Join(", ", maxInRows));
+        Console.WriteLine(string.Join(", ", FindMaxInRows(matrix)));
     }
 }
 
 // === Задание 3: Невыровненная матрица букв a-k, замена, транспонирование ===
 public class JaggedCharMatrix
 {
+    public static char[][] ReplaceChar(char[][] matrix, char from, char to)
+    {
+        int rows = matrix.Length;
+        char[][] result = new char[rows][];
+        for (int i = 0; i < rows; i++)
+        {
+            result[i] = new char[matrix[i].Length];
+            for (int j = 0; j < matrix[i].Length; j++)
+                result[i][j] = matrix[i][j] == from ? to : matrix[i][j];
+        }
+        return result;
+    }
+
+    public static char[][] Transpose(char[][] matrix)
+    {
+        int rows = matrix.Length;
+        int maxCols = 0;
+        for (int i = 0; i < rows; i++)
+            if (matrix[i].Length > maxCols) maxCols = matrix[i].Length;
+
+        char[][] result = new char[maxCols][];
+        for (int j = 0; j < maxCols; j++)
+        {
+            result[j] = new char[rows];
+            for (int i = 0; i < rows; i++)
+                result[j][i] = j < matrix[i].Length ? matrix[i][j] : ' ';
+        }
+        return result;
+    }
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -109,39 +149,16 @@ public class JaggedCharMatrix
             Console.WriteLine(new string(matrix[i]));
         }
 
-        // Замена 'a' на 'e'
-        char[][] replaced = new char[rows][];
-        for (int i = 0; i < rows; i++)
-        {
-            replaced[i] = new char[matrix[i].Length];
-            for (int j = 0; j < matrix[i].Length; j++)
-            {
-                replaced[i][j] = matrix[i][j] == 'a' ? 'e' : matrix[i][j];
-            }
-        }
+        char[][] replaced = ReplaceChar(matrix, 'a', 'e');
 
         Console.WriteLine("\nМатрица после замены 'a' -> 'e':");
         for (int i = 0; i < rows; i++)
             Console.WriteLine(new string(replaced[i]));
 
-        // Транспонирование
-        int maxCols = 0;
-        for (int i = 0; i < rows; i++)
-            if (replaced[i].Length > maxCols)
-                maxCols = replaced[i].Length;
-
-        char[][] transposed = new char[maxCols][];
-        for (int j = 0; j < maxCols; j++)
-        {
-            transposed[j] = new char[rows];
-            for (int i = 0; i < rows; i++)
-            {
-                transposed[j][i] = j < replaced[i].Length ? replaced[i][j] : ' ';
-            }
-        }
+        char[][] transposed = Transpose(replaced);
 
         Console.WriteLine("\nТранспонированная матрица:");
-        for (int i = 0; i < maxCols; i++)
+        for (int i = 0; i < transposed.Length; i++)
             Console.WriteLine(new string(transposed[i]));
     }
 }

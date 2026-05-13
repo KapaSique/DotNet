@@ -1,0 +1,38 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+## Visual Studio
+.vs/
+*.rsuser
+.vscode/
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+
+## macOS
+.DS_Store
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]pp_[Dd]ata/
+
+## NuGet
+*.nupkg
+**/packages/*
+
+## Test results
+TestResults/
+*.trx
+*.coverage
+coverage.*

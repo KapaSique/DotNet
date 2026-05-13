@@ -4,6 +4,13 @@ using System.Xml.Linq;
 
 namespace DotNet.Laba11;
 
+public class BookInfo
+{
+    public string Title { get; set; } = "";
+    public string Author { get; set; } = "";
+    public string Year { get; set; } = "";
+}
+
 // === Задание 1: Чтение и запись XML (XmlDocument / DOM) ===
 public class XmlDomDemo
 {
@@ -46,7 +53,7 @@ public class XmlDomDemo
         }
     }
 
-    private static void AddStudent(XmlDocument doc, XmlElement root,
+    public static void AddStudent(XmlDocument doc, XmlElement root,
         string id, string surname, string name, string stipend, string kurs)
     {
         XmlElement student = doc.CreateElement("student");
@@ -134,13 +141,8 @@ public class XmlEditDemo
 // === Задание 3: LINQ to XML (XDocument) ===
 public class LinqToXmlDemo
 {
-    public static void Run()
-    {
-        Console.OutputEncoding = Encoding.UTF8;
-        Console.WriteLine("=== Задание 3: LINQ to XML ===");
-
-        // Создание XML через LINQ to XML
-        XDocument doc = new XDocument(
+    public static XDocument CreateLibraryDocument() =>
+        new XDocument(
             new XDeclaration("1.0", "UTF-8", null),
             new XElement("library",
                 new XElement("book",
@@ -164,31 +166,44 @@ public class LinqToXmlDemo
             )
         );
 
+    public static List<BookInfo> GetAllBooks(XDocument doc) =>
+        doc.Descendants("book")
+           .Select(book => new BookInfo
+           {
+               Title = book.Element("title")?.Value ?? "",
+               Author = book.Element("author")?.Value ?? "",
+               Year = book.Element("year")?.Value ?? ""
+           }).ToList();
+
+    public static List<BookInfo> GetOldBooks(XDocument doc) =>
+        doc.Descendants("book")
+           .Where(b => int.Parse(b.Element("year")?.Value ?? "0") < 1900)
+           .Select(b => new BookInfo
+           {
+               Title = b.Element("title")?.Value ?? "",
+               Author = b.Element("author")?.Value ?? "",
+               Year = b.Element("year")?.Value ?? ""
+           }).ToList();
+
+    public static void Run()
+    {
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.WriteLine("=== Задание 3: LINQ to XML ===");
+
+        XDocument doc = CreateLibraryDocument();
+
         string xmlPath = "Laba11/library.xml";
         doc.Save(xmlPath);
         Console.WriteLine($"XML создан: {xmlPath}");
 
-        // LINQ-запросы к XML
         XDocument loaded = XDocument.Load(xmlPath);
         Console.WriteLine("\nВсе книги:");
-        var allBooks = from book in loaded.Descendants("book")
-                       select new
-                       {
-                           Title = book.Element("title")?.Value,
-                           Author = book.Element("author")?.Value,
-                           Year = book.Element("year")?.Value
-                       };
-
-        foreach (var b in allBooks)
+        foreach (var b in GetAllBooks(loaded))
             Console.WriteLine($"  {b.Author} — \"{b.Title}\" ({b.Year})");
 
-        // Запрос с фильтрацией
         Console.WriteLine("\nКниги, изданные до 1900 года:");
-        var oldBooks = loaded.Descendants("book")
-                             .Where(b => int.Parse(b.Element("year")?.Value ?? "0") < 1900);
-
-        foreach (var b in oldBooks)
-            Console.WriteLine($"  {b.Element("title")?.Value} ({b.Element("year")?.Value})");
+        foreach (var b in GetOldBooks(loaded))
+            Console.WriteLine($"  {b.Title} ({b.Year})");
     }
 }
 

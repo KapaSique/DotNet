@@ -7,17 +7,24 @@ public delegate void SimpleDelegate(string message);
 
 public class DelegateBasics
 {
-    public static void PrintUpper(string msg) =>
-        Console.WriteLine($"Верхний регистр: {msg.ToUpper()}");
-
-    public static void PrintLower(string msg) =>
-        Console.WriteLine($"Нижний регистр: {msg.ToLower()}");
-
-    public static void PrintReversed(string msg)
+    public static string ToUpperString(string msg) => msg.ToUpper();
+    public static string ToLowerString(string msg) => msg.ToLower();
+    public static string ReverseString(string msg)
     {
         char[] chars = msg.ToCharArray();
         Array.Reverse(chars);
-        Console.WriteLine($"Реверс: {new string(chars)}");
+        return new string(chars);
+    }
+
+    public static void PrintUpper(string msg) =>
+        Console.WriteLine($"Верхний регистр: {ToUpperString(msg)}");
+
+    public static void PrintLower(string msg) =>
+        Console.WriteLine($"Нижний регистр: {ToLowerString(msg)}");
+
+    public static void PrintReversed(string msg)
+    {
+        Console.WriteLine($"Реверс: {ReverseString(msg)}");
     }
 
     public static void Run()
@@ -153,25 +160,24 @@ public class EventsDemo
 // === Задание 4: Делегаты Action, Func, Predicate ===
 public class BuiltInDelegates
 {
+    public static double AddOperation(double a, double b) => a + b;
+    public static double MultiplyOperation(double a, double b) => a * b;
+    public static bool IsEven(int n) => n % 2 == 0;
+    public static List<int> GetEvenNumbers(List<int> numbers) => numbers.FindAll(IsEven);
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;
         Console.WriteLine("=== Задание 4: Встроенные делегаты Action, Func, Predicate ===");
 
-        // Action - делегат без возвращаемого значения
         Action<string> print = msg => Console.WriteLine($"  Action: {msg}");
         print("Привет из Action!");
 
-        // Func - делегат с возвращаемым значением
-        Func<double, double, double> add = (a, b) => a + b;
-        Func<double, double, double> multiply = (a, b) => a * b;
-        Console.WriteLine($"  Func add(3.5, 2.5) = {add(3.5, 2.5)}");
-        Console.WriteLine($"  Func multiply(4.0, 5.0) = {multiply(4.0, 5.0)}");
+        Console.WriteLine($"  Func add(3.5, 2.5) = {AddOperation(3.5, 2.5)}");
+        Console.WriteLine($"  Func multiply(4.0, 5.0) = {MultiplyOperation(4.0, 5.0)}");
 
-        // Predicate - делегат, возвращающий bool
         List<int> numbers = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        Predicate<int> isEven = n => n % 2 == 0;
-        List<int> evenNumbers = numbers.FindAll(isEven);
+        List<int> evenNumbers = GetEvenNumbers(numbers);
         Console.WriteLine($"  Predicate (чётные числа): [{string.Join(", ", evenNumbers)}]");
     }
 }

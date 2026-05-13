@@ -35,6 +35,16 @@ public class LinqQuerySyntax
         new() { Id = 6, Surname = "Федорова", Name = "Мария", Stipend = 2200, Kurs = 3, City = "Москва" },
     };
 
+    public static List<(string Surname, string Name, decimal Stipend)> GetMoscowRichStudents(List<Student> students) =>
+        (from s in students
+         where s.City == "Москва" && s.Stipend > 2000
+         select (s.Surname, s.Name, s.Stipend)).ToList();
+
+    public static List<Student> GetStudentsSortedByStipend(List<Student> students) =>
+        (from s in students
+         orderby s.Stipend descending
+         select s).ToList();
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -68,6 +78,15 @@ public class LinqQuerySyntax
 // === Задание 2: Лямбда-выражения и методы расширения LINQ ===
 public class LinqLambdaSyntax
 {
+    public static List<Student> GetKurs3Students(List<Student> students) =>
+        students.Where(s => s.Kurs == 3).ToList();
+
+    public static decimal GetAverageStipend(List<Student> students) =>
+        students.Average(s => s.Stipend);
+
+    public static int GetMoscowCount(List<Student> students) =>
+        students.Count(s => s.City == "Москва");
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -100,6 +119,12 @@ public class LinqLambdaSyntax
 // === Задание 3: Группировка (GroupBy) ===
 public class LinqGrouping
 {
+    public static List<IGrouping<string, Student>> GetGroupsByCity(List<Student> students) =>
+        (from s in students group s by s.City).ToList();
+
+    public static List<IGrouping<int, Student>> GetGroupsByKurs(List<Student> students) =>
+        students.GroupBy(s => s.Kurs).ToList();
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -133,6 +158,22 @@ public class LinqGrouping
 // === Задание 4: Join (соединение коллекций) ===
 public class LinqJoin
 {
+    public static List<Course> GetCourses() => new()
+    {
+        new() { StudentId = 1, Subject = "Математика", Grade = 5 },
+        new() { StudentId = 1, Subject = "Физика", Grade = 4 },
+        new() { StudentId = 2, Subject = "Математика", Grade = 3 },
+        new() { StudentId = 3, Subject = "Математика", Grade = 5 },
+        new() { StudentId = 3, Subject = "Программирование", Grade = 5 },
+        new() { StudentId = 5, Subject = "Физика", Grade = 4 },
+    };
+
+    public static List<(string Surname, string Name, string Subject, int Grade)> GetJoinedStudentCourses(
+        List<Student> students, List<Course> courses) =>
+        (from s in students
+         join c in courses on s.Id equals c.StudentId
+         select (s.Surname, s.Name, c.Subject, c.Grade)).ToList();
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -177,6 +218,14 @@ public class LinqJoin
 // === Задание 5: LINQ to XML ===
 public class LinqToXmlDemo
 {
+    public static List<(int Rank, string Surname, string Name, decimal Stipend, string City)> GetTop3NonMoscow(
+        List<Student> students) =>
+        students.Where(s => s.City != "Москва")
+                .OrderByDescending(s => s.Stipend)
+                .Take(3)
+                .Select((s, index) => (Rank: index + 1, s.Surname, s.Name, s.Stipend, s.City))
+                .ToList();
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;

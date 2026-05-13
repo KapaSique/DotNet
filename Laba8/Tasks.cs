@@ -81,6 +81,21 @@ public class AppContext
 // === Задание 3: JSON сериализация и десериализация ===
 public class JsonDemo
 {
+    public static string SerializeMovies(List<Movie> movies)
+    {
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
+        return JsonSerializer.Serialize(movies, options);
+    }
+
+    public static List<Movie>? DeserializeMovies(string json)
+    {
+        return JsonSerializer.Deserialize<List<Movie>>(json);
+    }
+
     public static void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -92,26 +107,17 @@ public class JsonDemo
             new() { Id = 2, Title = "Начало", Description = "Триллер", Year = 2010 },
         };
 
-        // Сериализация
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-        };
-
-        string json = JsonSerializer.Serialize(movies, options);
+        string json = SerializeMovies(movies);
         Console.WriteLine("Сериализованный JSON:");
         Console.WriteLine(json);
 
-        // Сохранение в файл
         string path = "Laba8/movies.json";
         Directory.CreateDirectory("Laba8");
         File.WriteAllText(path, json, Encoding.UTF8);
         Console.WriteLine($"\nJSON сохранён в файл: {path}");
 
-        // Десериализация из файла
         string loadedJson = File.ReadAllText(path, Encoding.UTF8);
-        var loadedMovies = JsonSerializer.Deserialize<List<Movie>>(loadedJson);
+        var loadedMovies = DeserializeMovies(loadedJson);
         Console.WriteLine("\nДесериализованные данные:");
         foreach (var m in loadedMovies!)
             Console.WriteLine($"  {m}");
