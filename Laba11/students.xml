@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<students>
+  <student id="1">
+    <surname>Иванов</surname>
+    <name>Петр</name>
+    <stipend>3000</stipend>
+    <kurs>3</kurs>
+  </student>
+  <student id="2">
+    <surname>Смирнова</surname>
+    <name>Анна</name>
+    <stipend>3000</stipend>
+    <kurs>2</kurs>
+  </student>
+  <student id="3">
+    <surname>Козлов</surname>
+    <name>Дмитрий</name>
+    <stipend>1800</stipend>
+    <kurs>4</kurs>
+  </student>
+  <student id="4">
+    <surname>Петров</surname>
+    <name>Сергей</name>
+    <stipend>2200</stipend>
+    <kurs>5</kurs>
+  </student>
+</students>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--DOCTYPE students SYSTEM "students.dtd"-->
+<students>
+  <student id="1">
+    <surname>Иванов</surname>
+    <name>Петр</name>
+    <stipend>3000</stipend>
+    <kurs>3</kurs>
+  </student>
+</students>

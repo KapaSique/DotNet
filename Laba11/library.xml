@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<library>
+  <book id="1">
+    <title>Война и мир</title>
+    <author>Толстой Л.Н.</author>
+    <year>1869</year>
+  </book>
+  <book id="2">
+    <title>Преступление и наказание</title>
+    <author>Достоевский Ф.М.</author>
+    <year>1866</year>
+  </book>
+  <book id="3">
+    <title>Мастер и Маргарита</title>
+    <author>Булгаков М.А.</author>
+    <year>1967</year>
+  </book>
+</library>
